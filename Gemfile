@@ -5,7 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.4.2"  # or your Ruby version
 
 gem "rails", "~> 8.1.1"
-gem "sqlite3", "~> 1.4"
+gem "sqlite3", ">= 2.1"
 gem "puma", "~> 6.0"
 gem "bootsnap", ">= 1.4.4", require: false
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
