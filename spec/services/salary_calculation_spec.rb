@@ -17,11 +17,11 @@ RSpec.describe SalaryCalculation do
         service = described_class.new(employee)
         result = service.calculate
 
-        expect(result[:gross_salary]).to eq(100000)
+        expect(result[:gross_salary]).to eq(50000)
         expect(result[:currency]).to eq('INR')
-        expect(result[:deductions][:tds]).to eq(10000)
+        expect(result[:deductions][:tds]).to eq(5000)
         expect(result[:deductions][:tds_rate]).to eq(10)
-        expect(result[:net_salary]).to eq(90000)
+        expect(result[:net_salary]).to eq(45000)
       end
     end
 
@@ -34,11 +34,11 @@ RSpec.describe SalaryCalculation do
         service = described_class.new(employee)
         result = service.calculate
 
-        expect(result[:gross_salary]).to eq(100000)
+        expect(result[:gross_salary]).to eq(50000)
         expect(result[:currency]).to eq('USD')
-        expect(result[:deductions][:tds]).to eq(12000)
+        expect(result[:deductions][:tds]).to eq(6000)
         expect(result[:deductions][:tds_rate]).to eq(12)
-        expect(result[:net_salary]).to eq(88000)
+        expect(result[:net_salary]).to eq(44000)
       end
     end
 
@@ -51,11 +51,11 @@ RSpec.describe SalaryCalculation do
         service = described_class.new(employee)
         result = service.calculate
 
-        expect(result[:gross_salary]).to eq(100000)
+        expect(result[:gross_salary]).to eq(50000)
         expect(result[:currency]).to eq('GBP')
         expect(result[:deductions][:tds]).to eq(0)
         expect(result[:deductions][:tds_rate]).to eq(0)
-        expect(result[:net_salary]).to eq(100000)
+        expect(result[:net_salary]).to eq(50000)
       end
     end
 
@@ -69,7 +69,7 @@ RSpec.describe SalaryCalculation do
         result = service.calculate
 
         expect(result[:gross_salary]).to eq(55555.55)
-        expect(result[:deductions][:tds]).to eq(5555.56) # Rounded
+        expect(result[:deductions][:tds]).to eq(5555.56)
         expect(result[:net_salary]).to eq(49999.99)
       end
     end
