@@ -11,5 +11,20 @@ FactoryBot.define do
     net_salary { 40000 }
     tds_percentage { 10 }
     deductions { 1000 }
+
+    trait :indian do
+      country_code { 'IN' }
+      currency_code { 'INR' }
+    end
+    
+    trait :american do
+      country_code { 'US' }
+      currency_code { 'USD' }
+    end
+    
+    trait :british do
+      country_code { 'GB' }
+      currency_code { 'GBP' }
+    end
   end
 end
