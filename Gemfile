@@ -10,16 +10,9 @@ gem "puma", "~> 6.0"
 gem "bootsnap", ">= 1.4.4", require: false
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "rack-cors"
-
-# API & Serialization
-gem "jsonapi-serializer"
-
-# Country & Money handling
-gem "countries", "~> 5.7"
-gem "money-rails", "~> 1.15"
-
-# Pagination
-gem "pagy", "~> 6.2"
+gem "jsonapi-serializer" # API & Serialization
+gem "countries", "~> 5.7" # Country & Money handling
+gem "pagy", "~> 6.2" # Pagination
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

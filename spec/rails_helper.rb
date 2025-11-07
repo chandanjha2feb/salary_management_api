@@ -4,7 +4,6 @@ ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
-require 'money-rails/test_helpers'
 
 # Add support files
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
@@ -21,12 +20,12 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
-  
+
   # Include FactoryBot methods
   config.include FactoryBot::Syntax::Methods
-  
-  # Include Money test helpers
-  config.include MoneyRails::TestHelpers
+
+  # Include JsonapiHelper for request specs
+  config.include JsonapiHelper, type: :request
   
   # Database cleaner setup
   config.before(:suite) do
