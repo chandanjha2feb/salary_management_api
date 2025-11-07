@@ -118,8 +118,8 @@ RSpec.describe Employee, type: :model do
 	describe 'salary calculation on save' do
 		let(:employee) { create(:employee, country_code: 'IN', gross_salary: 100000) }
 		before do
-			create(:tax_rate, country_code: 'IN', tds_rate: 10, active: true)
-			create(:tax_rate, country_code: 'US', tds_rate: 12, active: true)
+			create(:tax_rate, :india)
+      create(:tax_rate, :us)
 		end
 
 		it 'calculates net salary before save' do

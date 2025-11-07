@@ -37,9 +37,9 @@ RSpec.describe TaxRate, type: :model do
 
   describe 'scopes' do
     before do
-      TaxRate.create!(country_code: 'IN', tds_rate: 10, active: true)
-      TaxRate.create!(country_code: 'US', tds_rate: 12, active: true)
-      TaxRate.create!(country_code: 'GB', tds_rate: 15, active: false)
+      create(:tax_rate, :india)
+      create(:tax_rate, :us)
+      create(:tax_rate, :inactive)
     end
 
     describe '.active' do
@@ -66,8 +66,8 @@ RSpec.describe TaxRate, type: :model do
 
   describe '.rate_for' do
     before do
-      TaxRate.create!(country_code: 'IN', tds_rate: 10, active: true)
-      TaxRate.create!(country_code: 'US', tds_rate: 12, active: true)
+      create(:tax_rate, :india)
+      create(:tax_rate, :us)
     end
 
     it 'returns the rate for a country' do
