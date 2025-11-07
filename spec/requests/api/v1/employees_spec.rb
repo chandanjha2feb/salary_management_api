@@ -79,4 +79,141 @@ RSpec.describe 'Api::V1::Employees', type: :request do
       end
     end
   end
+
+  describe 'POST /api/v1/employees' do
+		before do
+			create(:tax_rate, :india)
+		end
+
+		context 'with valid parameters' do
+			let(:valid_params) do
+				{
+					employee: {
+						first_name: 'John',
+						last_name: 'Doe',
+						job_title: 'Software Engineer',
+						country_code: 'IN',
+						gross_salary: 50000.00
+					}
+				}
+			end
+
+			it 'creates a new employee' do
+				expect {
+					post '/api/v1/employees', params: valid_params
+				}.to change(Employee, :count).by(1)
+				
+				expect(response).to have_http_status(:created)
+			end
+
+			it 'returns the created employee with calculated salary' do
+				post '/api/v1/employees', params: valid_params
+				
+				json = JSON.parse(response.body)
+				expect(json['first_name']).to eq('John')
+				expect(json['last_name']).to eq('Doe')
+				expect(json['net_salary']).to eq('45000.0') # 50000 - 10% TDS
+				expect(json['currency_code']).to eq('INR')
+			end
+  	end
+
+		context 'with invalid parameters' do
+			let(:invalid_params) do
+				{
+					employee: {
+						first_name: '',
+						last_name: '',
+						job_title: '',
+						country_code: '',
+						gross_salary: 0
+					}
+				}
+			end
+
+			it 'does not create employee' do
+				expect {
+					post '/api/v1/employees', params: invalid_params
+				}.not_to change(Employee, :count)
+			end
+
+			it 'returns validation errors' do
+				post '/api/v1/employees', params: invalid_params
+				
+				expect(response).to have_http_status(:unprocessable_entity)
+				json = JSON.parse(response.body)
+				expect(json['error']).to eq('Validation failed')
+				expect(json['details']).to include(
+					"First name can't be blank",
+					"Last name can't be blank",
+					"Job title can't be blank",
+					"Country code can't be blank",
+					"Gross salary must be greater than 0"
+				)
+			end
+		end
+	end
+
+	describe 'PUT /api/v1/employees/:id' do
+		before do
+			create(:tax_rate, :india)
+			create(:tax_rate, :us)
+		end
+		
+		let(:employee) { create(:employee, country_code: 'IN', gross_salary: 50000) }
+		
+		context 'with valid parameters' do
+			let(:valid_params) do
+				{
+					employee: {
+						gross_salary: 60000.00
+					}
+				}
+			end
+
+			it 'updates the employee' do
+				put "/api/v1/employees/#{employee.id}", params: valid_params
+				
+				expect(response).to have_http_status(:success)
+				employee.reload
+				expect(employee.gross_salary).to eq(60000)
+				expect(employee.net_salary).to eq(54000) # Recalculated
+			end
+		end
+
+		context 'with invalid parameters' do
+			let(:invalid_params) do
+				{
+					employee: {
+						gross_salary: -1000
+					}
+				}
+			end
+
+			it 'returns validation errors' do
+				put "/api/v1/employees/#{employee.id}", params: invalid_params
+				
+				expect(response).to have_http_status(:unprocessable_entity)
+				json = JSON.parse(response.body)
+				expect(json['details']).to include('Gross salary must be greater than 0')
+			end
+		end
+	end
+
+	describe 'DELETE /api/v1/employees/:id' do
+		let!(:employee) { create(:employee) }
+		
+		it 'deletes the employee' do
+			expect {
+				delete "/api/v1/employees/#{employee.id}"
+			}.to change(Employee, :count).by(-1)
+			
+			expect(response).to have_http_status(:no_content)
+		end
+		
+		it 'returns 404 for non-existent employee' do
+			delete '/api/v1/employees/999999'
+			
+			expect(response).to have_http_status(:not_found)
+		end
+	end
 end
