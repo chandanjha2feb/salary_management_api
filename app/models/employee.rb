@@ -12,6 +12,7 @@ class Employee < ApplicationRecord
   validate :valid_country_code
 
 	before_validation :set_currency_from_country
+	before_save :calculate_net_salary
 
 	def country
     ISO3166::Country[country_code]
@@ -39,5 +40,16 @@ class Employee < ApplicationRecord
 		else
       self.currency_code = 'USD'
     end
+  end
+
+	def calculate_net_salary
+    return unless gross_salary.present?
+    
+    calculator = ::SalaryCalculation.new(self)
+    result = calculator.calculate
+    
+    self.tds_percentage = result[:deductions][:tds_rate]
+    self.net_salary = result[:net_salary]
+    self.deductions = result[:deductions][:tds]
   end
 end
