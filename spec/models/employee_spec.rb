@@ -114,4 +114,41 @@ RSpec.describe Employee, type: :model do
 			expect(employee.country_name).to eq('India')
 		end
 	end
+
+	describe 'salary calculation on save' do
+		before do
+			create(:tax_rate, country_code: 'IN', tds_rate: 10, active: true)
+			create(:tax_rate, country_code: 'US', tds_rate: 12, active: true)
+		end
+
+		it 'calculates net salary before save' do
+			employee = build(:employee, country_code: 'IN', gross_salary: 100000)
+			employee.save!
+			
+			expect(employee.net_salary).to eq(90000)
+			expect(employee.tds_amount).to eq(10000)
+			expect(employee.deductions_breakdown).to eq({
+				'tds' => 10000.0,
+				'tds_rate' => 10.0
+			})
+		end
+
+		it 'recalculates when gross salary changes' do
+			employee = create(:employee, country_code: 'IN', gross_salary: 100000)
+			expect(employee.net_salary).to eq(90000)
+			
+			employee.update!(gross_salary: 50000)
+			expect(employee.net_salary).to eq(45000)
+			expect(employee.tds_amount).to eq(5000)
+		end
+
+		it 'recalculates when country changes' do
+			employee = create(:employee, country_code: 'IN', gross_salary: 100000)
+			expect(employee.net_salary).to eq(90000)
+			
+			employee.update!(country_code: 'US', currency_code: 'USD')
+			expect(employee.net_salary).to eq(88000)
+			expect(employee.tds_amount).to eq(12000)
+		end
+	end
 end
