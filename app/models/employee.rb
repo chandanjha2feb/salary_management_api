@@ -14,6 +14,35 @@ class Employee < ApplicationRecord
 	before_validation :set_currency_from_country
 	before_save :calculate_net_salary
 
+	BASIC_FIELDS = %i[
+    id job_title net_salary tds_percentage
+  ].freeze
+
+	# Use :view => :index (default) or :detail (adds tds_amount)
+  def serializable_hash(options = nil)
+    options ||= {}
+    view = options[:view] || :index
+
+    base = super({ only: BASIC_FIELDS }.merge(options))
+    base.merge!(
+      "full_name" => full_name,
+      "country"   => country_name,
+      "currency"  => currency_code
+    )
+
+		if view == :detail
+    	base["tds_percentage"] = tds_percentage
+			base["deductions"] = deductions
+			base["gross_salary"] = gross_salary
+		end
+
+    base
+  end
+
+	def full_name
+		"#{first_name} #{last_name}"
+	end
+
 	def country
     ISO3166::Country[country_code]
   end

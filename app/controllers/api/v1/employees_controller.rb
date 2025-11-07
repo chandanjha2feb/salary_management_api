@@ -1,4 +1,3 @@
-# app/controllers/api/v1/employees_controller.rb
 module Api
   module V1
     class EmployeesController < ApplicationController
@@ -8,29 +7,20 @@ module Api
         pagy, employees = pagy(Employee.all)
         
         render json: {
-          employees: employees.as_json(
-            only: [:id, :first_name, :last_name, :job_title, :country_code, :currency_code],
-            methods: [:gross_salary, :net_salary]
-          ),
+         employees: employees.as_json(view: :index),
           meta: pagy_metadata(pagy)
         }
       end
       
       def show
-        render json: @employee.as_json(
-          only: [:id, :first_name, :last_name, :job_title, :country_code, :currency_code],
-          methods: [:gross_salary, :net_salary, :tds_amount]
-        )
+        render json: @employee.as_json(view: :detail)
       end
       
       def create
         employee = Employee.new(employee_params)
         
         if employee.save
-          render json: employee.as_json(
-            only: [:id, :first_name, :last_name, :job_title, :country_code, :currency_code],
-            methods: [:gross_salary, :net_salary]
-          ), status: :created
+          render json: employee.as_json(view: :index), status: :created
         else
           render json: { 
             error: 'Validation failed',
@@ -41,10 +31,7 @@ module Api
       
       def update
         if @employee.update(employee_params)
-          render json: @employee.as_json(
-            only: [:id, :first_name, :last_name, :job_title, :country_code, :currency_code],
-            methods: [:gross_salary, :net_salary]
-          )
+          render json: @employee.as_json(view: :index)
         else
           render json: { 
             error: 'Validation failed',
