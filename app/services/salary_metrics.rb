@@ -1,4 +1,3 @@
-# app/services/salary_metrics_service.rb
 class SalaryMetrics
   def self.by_country(country_code)
     country_code = country_code.upcase
