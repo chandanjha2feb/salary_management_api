@@ -32,13 +32,12 @@ RSpec.describe 'Api::V1::Employees', type: :request do
         
         expect(first_employee).to include(
           'id' => employees.first.id,
-          'first_name' => employees.first.first_name,
-          'last_name' => employees.first.last_name,
+          'full_name' => employees.first.full_name,
           'job_title' => employees.first.job_title,
-          'country_code' => employees.first.country_code,
-          'currency_code' => employees.first.currency_code,
-          'gross_salary' => employees.first.gross_salary.to_s,
-          'net_salary' => employees.first.net_salary.to_s
+          'country' => employees.first.country_name,
+          'currency' => employees.first.currency_code,
+          'net_salary' => employees.first.net_salary.to_s,
+          'tds_percentage' => employees.first.tds_percentage,
         )
       end
 
@@ -110,10 +109,9 @@ RSpec.describe 'Api::V1::Employees', type: :request do
 				post '/api/v1/employees', params: valid_params
 				
 				json = JSON.parse(response.body)
-				expect(json['first_name']).to eq('John')
-				expect(json['last_name']).to eq('Doe')
-				expect(json['net_salary']).to eq('45000.0') # 50000 - 10% TDS
-				expect(json['currency_code']).to eq('INR')
+				expect(json['full_name']).to eq('John Doe')
+				expect(json['job_title']).to eq('Software Engineer')
+				expect(json['net_salary']).to eq('45000.0')
 			end
   	end
 
