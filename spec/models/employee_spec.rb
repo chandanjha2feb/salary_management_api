@@ -79,4 +79,39 @@ RSpec.describe Employee, type: :model do
       end
     end
   end
+
+	describe 'callbacks' do
+		describe 'before_validation' do
+			it 'sets currency code based on country' do
+				employee = build(:employee)
+				employee.valid?
+				expect(employee.currency_code).to eq('INR')
+			end
+
+			it 'uses USD as default currency for unknown countries' do
+				employee = build(:employee, country_code: 'INVALID')
+				employee.valid?
+				expect(employee.currency_code).to eq('USD')
+			end
+
+			it 'does not override manually set currency' do
+				employee = build(:employee, currency_code: 'USD')
+				employee.valid?
+				expect(employee.currency_code).to eq('USD')
+			end
+		end
+	end
+
+	describe 'helper methods' do
+		let(:employee) { build(:employee) }
+
+		it 'returns country object' do
+			expect(employee.country).to be_a(ISO3166::Country)
+			expect(employee.country.name).to eq('India')
+		end
+
+		it 'returns country name' do
+			expect(employee.country_name).to eq('India')
+		end
+	end
 end
