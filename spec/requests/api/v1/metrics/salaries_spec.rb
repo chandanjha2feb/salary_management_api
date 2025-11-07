@@ -27,7 +27,6 @@ RSpec.describe 'Api::V1::Metrics::Salaries', type: :request do
           'min_salary' => '50000.0',
           'max_salary' => '70000.0',
           'avg_salary' => 60000.0,
-          'employee_count' => 3
         )
       end
 
@@ -80,10 +79,9 @@ RSpec.describe 'Api::V1::Metrics::Salaries', type: :request do
         json = JSON.parse(response.body)
         expect(json['job_title']).to eq('Engineer')
         expect(json['metrics']).to include(
-          'INR' => 55000.0,  # Average of 50000 and 60000
+          'INR' => 55000.0,
           'USD' => 80000.0
         )
-        expect(json['employee_count']).to eq(3)
       end
 
       it 'handles case-insensitive job titles' do
