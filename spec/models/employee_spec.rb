@@ -107,7 +107,7 @@ RSpec.describe Employee, type: :model do
 
 		it 'returns country object' do
 			expect(employee.country).to be_a(ISO3166::Country)
-			expect(employee.country.name).to eq('India')
+			expect(employee.country_name).to eq('India')
 		end
 
 		it 'returns country name' do
