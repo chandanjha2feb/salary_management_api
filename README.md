@@ -67,7 +67,8 @@ The API will be available at `http://localhost:3000`
 | Column | Type | Description |
 |--------|------|-------------|
 | id | integer | Primary key |
-| full_name | string | Employee name (required) |
+| first_name | string | Employee name (required) |
+| last_name | string | Employee name (required) |
 | job_title | string | Job position (required) |
 | country_code | string | ISO country code (required) |
 | currency_code | string | ISO currency code (auto-set) |
@@ -242,8 +243,8 @@ bundle exec rspec spec/requests/
 
 # Service tests
 bundle exec rspec spec/services/
-
-## 🤖 AI Usage and Implementation Details
+```
+###  AI Usage and Implementation Details
 
 This project was built using AI assistance (Claude) to demonstrate modern development practices:
 
@@ -292,3 +293,4 @@ The git history demonstrates the TDD cycle with commits clearly marked:
 - [ ] Implement rate limiting
 - [ ] Add API versioning through headers
 - [ ] Audit logging for all changes
+- [ ] Add API documentation using swagger
