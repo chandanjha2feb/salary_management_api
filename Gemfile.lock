@@ -115,7 +115,7 @@ GEM
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    json (2.15.2)
+    json (2.16.0)
     jsonapi-serializer (2.2.0)
       activesupport (>= 4.2)
     language_server-protocol (3.17.0.5)
@@ -132,16 +132,7 @@ GEM
       net-smtp
     marcel (1.1.0)
     mini_mime (1.1.5)
-    minitest (5.26.0)
-    monetize (1.13.0)
-      money (~> 6.12)
-    money (6.19.0)
-      i18n (>= 0.6.4, <= 2)
-    money-rails (1.15.0)
-      activesupport (>= 3.0)
-      monetize (~> 1.9)
-      money (~> 6.13)
-      railties (>= 3.0)
+    minitest (5.26.1)
     msgpack (1.8.0)
     net-imap (0.5.12)
       date
@@ -230,7 +221,7 @@ GEM
       psych (>= 4.0.0)
       tsort
     regexp_parser (2.11.3)
-    reline (0.6.2)
+    reline (0.6.3)
       io-console (~> 0.5)
     rspec-core (3.13.6)
       rspec-support (~> 3.13.0)
@@ -240,10 +231,10 @@ GEM
     rspec-mocks (3.13.7)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
-    rspec-rails (6.1.5)
-      actionpack (>= 6.1)
-      activesupport (>= 6.1)
-      railties (>= 6.1)
+    rspec-rails (8.0.2)
+      actionpack (>= 7.2)
+      activesupport (>= 7.2)
+      railties (>= 7.2)
       rspec-core (~> 3.13)
       rspec-expectations (~> 3.13)
       rspec-mocks (~> 3.13)
@@ -333,12 +324,11 @@ DEPENDENCIES
   factory_bot_rails
   faker
   jsonapi-serializer
-  money-rails (~> 1.15)
   pagy (~> 6.2)
   puma (~> 6.0)
   rack-cors
   rails (~> 8.1.1)
-  rspec-rails (~> 6.0)
+  rspec-rails (~> 8.0)
   rswag-api
   rswag-ui
   rubocop-rails
