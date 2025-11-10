@@ -11,7 +11,7 @@ gem "bootsnap", ">= 1.4.4", require: false
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "rack-cors"
 gem "jsonapi-serializer" # API & Serialization
-gem "countries", "~> 5.7" # Country & Money handling
+gem "countries", "~> 8.0" # Country & Money handling
 gem "pagy", "~> 6.2" # Pagination
 
 group :development, :test do
