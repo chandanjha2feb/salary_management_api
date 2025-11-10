@@ -133,15 +133,6 @@ GEM
     marcel (1.1.0)
     mini_mime (1.1.5)
     minitest (5.26.0)
-    monetize (1.13.0)
-      money (~> 6.12)
-    money (6.19.0)
-      i18n (>= 0.6.4, <= 2)
-    money-rails (1.15.0)
-      activesupport (>= 3.0)
-      monetize (~> 1.9)
-      money (~> 6.13)
-      railties (>= 3.0)
     msgpack (1.8.0)
     net-imap (0.5.12)
       date
@@ -179,7 +170,7 @@ GEM
     psych (5.2.6)
       date
       stringio
-    puma (6.6.1)
+    puma (7.1.0)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.2.4)
@@ -333,9 +324,8 @@ DEPENDENCIES
   factory_bot_rails
   faker
   jsonapi-serializer
-  money-rails (~> 1.15)
   pagy (~> 6.2)
-  puma (~> 6.0)
+  puma (~> 7.1)
   rack-cors
   rails (~> 8.1.1)
   rspec-rails (~> 6.0)
