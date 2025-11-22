@@ -11,7 +11,7 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "rack-cors"
 gem "jsonapi-serializer" # API & Serialization
 gem "countries", "~> 5.7" # Country & Money handling
-gem "pagy", "~> 6.2" # Pagination
+gem "pagy", "~> 43.0" # Pagination
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

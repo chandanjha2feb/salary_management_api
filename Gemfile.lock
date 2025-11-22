@@ -133,15 +133,6 @@ GEM
     marcel (1.1.0)
     mini_mime (1.1.5)
     minitest (5.26.0)
-    monetize (1.13.0)
-      money (~> 6.12)
-    money (6.19.0)
-      i18n (>= 0.6.4, <= 2)
-    money-rails (1.15.0)
-      activesupport (>= 3.0)
-      monetize (~> 1.9)
-      money (~> 6.13)
-      railties (>= 3.0)
     msgpack (1.8.0)
     net-imap (0.5.12)
       date
@@ -167,7 +158,9 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.10-x86_64-linux-musl)
       racc (~> 1.4)
-    pagy (6.5.0)
+    pagy (43.0.0)
+      json
+      yaml
     parallel (1.27.0)
     parser (3.3.10.0)
       ast (~> 2.4.1)
@@ -312,6 +305,7 @@ GEM
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    yaml (0.4.0)
     zeitwerk (2.7.3)
 
 PLATFORMS
@@ -333,8 +327,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   jsonapi-serializer
-  money-rails (~> 1.15)
-  pagy (~> 6.2)
+  pagy (~> 43.0)
   puma (~> 6.0)
   rack-cors
   rails (~> 8.1.1)
